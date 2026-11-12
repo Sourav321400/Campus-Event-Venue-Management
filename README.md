@@ -7,8 +7,6 @@ This repository contains two related implementations discussed during project de
 - **DAA_Python** — Python/Tkinter application demonstrating searching, sorting, and greedy venue allocation.
 - **PLSQL_Database** — Oracle SQL/PLSQL scripts demonstrating relational tables, fee calculation, venue booking validation, cursor-based reporting, and deletion auditing.
 
-> These files are reconstructed from the project specifications and implementation details discussed during development. Compare them with your final local versions before submission if you need an exact copy of your original work.
-
 ## Technologies
 
 - Python 3
