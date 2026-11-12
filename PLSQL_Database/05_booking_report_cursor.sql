@@ -1,0 +1,36 @@
+CREATE OR REPLACE PROCEDURE DISPLAY_BOOKING_REPORT
+IS
+    CURSOR C_BOOKINGS IS
+        SELECT B.BOOKING_ID,
+               E.EVENT_NAME,
+               V.VENUE_NAME,
+               E.PARTICIPANTS,
+               B.BOOKING_DATE
+          FROM BOOKINGS B
+          JOIN EVENTS E ON E.EVENT_ID = B.EVENT_ID
+          JOIN VENUES V ON V.VENUE_ID = B.VENUE_ID
+         ORDER BY B.BOOKING_ID;
+
+    V_ROW C_BOOKINGS%ROWTYPE;
+BEGIN
+    OPEN C_BOOKINGS;
+    LOOP
+        FETCH C_BOOKINGS INTO V_ROW;
+        EXIT WHEN C_BOOKINGS%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Booking ID: ' || V_ROW.BOOKING_ID ||
+            ' | Event: ' || V_ROW.EVENT_NAME ||
+            ' | Venue: ' || V_ROW.VENUE_NAME ||
+            ' | Participants: ' || V_ROW.PARTICIPANTS
+        );
+    END LOOP;
+    CLOSE C_BOOKINGS;
+EXCEPTION
+    WHEN OTHERS THEN
+        IF C_BOOKINGS%ISOPEN THEN
+            CLOSE C_BOOKINGS;
+        END IF;
+        RAISE;
+END;
+/
